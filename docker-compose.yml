@@ -1,0 +1,41 @@
+services:
+  server:
+    ports:
+      - "50051:50051"
+    build:
+      context: ./DirectoryServer/
+  peer1:
+    build:
+      context: ./Peer/
+    ports:
+      - "50052:50052"
+    environment:
+      - DIR_SERVER_ADDR=server:50051
+      - PEER_NAME=peer-1
+    stdin_open: true 
+    tty: true
+  peer2:
+    build:
+      context: ./Peer/
+    environment:
+      - DIR_SERVER_ADDR=server:50051
+      - PEER_NAME=peer-2
+    stdin_open: true 
+    tty: true
+  peer3:
+    build:
+      context: ./Peer/
+    environment:
+      - DIR_SERVER_ADDR=server:50051
+      - PEER_NAME=peer-3
+    stdin_open: true 
+    tty: true
+  peer4:
+    build:
+      context: ./Peer/
+    environment:
+      - DIR_SERVER_ADDR=server:50051
+      - PEER_NAME=peer-4
+    stdin_open: true 
+    tty: true
+
