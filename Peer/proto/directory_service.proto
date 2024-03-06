@@ -1,0 +1,68 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "github.com/Adrephos/jeavendanc-st0263/DirectoryServer/proto";
+
+service DirectoryService {
+  rpc Login(LoginRequest) returns (LoginResponse) {}
+  rpc Keepalive(NodeName) returns (KeepaliveResponse) {}
+  rpc Logout(NodeName) returns (LogoutResponse) {}
+  rpc Search(SearchRequest) returns (SearchResponse) {}
+  rpc Index(IndexRequest) returns (IndexResponse) {}
+  rpc GetPeers(PeersRequest) returns (PeersResponse) {}
+}
+
+message LoginRequest {
+  string name = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string token = 1;
+  bool success = 2;
+}
+
+message IndexRequest {
+  string name = 1;
+  string url = 2;
+  repeated string files = 3;
+}
+
+message IndexResponse { bool success = 1; }
+message NodeName { string name = 1; }
+
+message LogoutResponse {
+  string message = 1;
+  bool success = 2;
+}
+
+message SearchRequest { string file = 1; }
+
+message SearchResponse {
+  message FileInfo {
+    string node = 1;
+    string url = 2;
+  }
+  repeated FileInfo response = 1;
+  bool success = 2;
+}
+
+message KeepaliveResponse {
+  message NodeInfo {
+    string name = 1;
+    string lastKeepalive = 2;
+  }
+  NodeInfo response = 1;
+  bool success = 2;
+}
+
+message PeersRequest {}
+
+message PeersResponse {
+  message NodeInfo {
+    string name = 1;
+    string url = 2;
+  }
+  repeated NodeInfo response = 1;
+  bool success = 2;
+}

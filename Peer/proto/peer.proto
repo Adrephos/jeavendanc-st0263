@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package proto;
+option go_package = "github.com/Adrephos/jeavendanc-st0263/DirectoryServer/proto";
+
+service Peer {
+  rpc Download(DownloadRequest) returns (DownloadResponse) {}
+  rpc List(ListRequest) returns (ListResponse) {}
+  rpc Upload(UploadRequest) returns (UploadResponse) {}
+}
+
+message DownloadRequest { string file = 1; }
+
+message DownloadResponse {
+  string file = 1;
+  string metadata = 2;
+}
+
+message ListRequest {}
+
+message ListResponse { repeated string files = 1; }
+
+message UploadRequest { string file = 1; }
+
+message UploadResponse { bool success = 1; }
